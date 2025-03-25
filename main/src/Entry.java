@@ -33,6 +33,20 @@ abstract class Entry {
         }
     }
 
+    public void findFromFile(String fileName, LocalDate inqDate) throws Exception {
+        File f = new File(fileName);
+        try (Scanner fail = new Scanner(f, "UTF-8")) {
+            while (fail.hasNextLine()) {
+                String line = fail.nextLine();
+                String[] lineSplit = line.split(";");
+                LocalDate lineDate = LocalDate.parse(lineSplit[0]);
+                if (lineDate == inqDate) {
+                    System.out.println();// siia sisse output sellel kujul nag tahame
+                }
+            }
+        }
+    }
+
     public List<String> readFromFile(String fileName) throws Exception{
         List<String> entries = new ArrayList<>();
         File f = new File(fileName);
