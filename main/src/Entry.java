@@ -1,5 +1,7 @@
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 abstract class Entry {
@@ -29,6 +31,18 @@ abstract class Entry {
                 }
             }
         }
+    }
+
+    public List<String> readFromFile(String fileName) throws Exception{
+        List<String> entries = new ArrayList<>();
+        File f = new File(fileName);
+        try (Scanner fail = new Scanner(f, "UTF-8")) {
+            while (fail.hasNextLine()) {
+                String line = fail.nextLine();
+                entries.add(line);
+            }
+        }
+        return entries;
     }
 
     public LocalDate getDate() {

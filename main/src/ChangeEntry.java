@@ -13,7 +13,7 @@ public class ChangeEntry extends Entry{
 
     @Override
     public void writeToFile() throws Exception{
-        List<Entry> entries = readFromFile("main/entries.txt");
+        List<String> entries = readFromFile("main/entries.txt");
         try {
             FileWriter myWriter = new FileWriter("main/entries.txt");
             myWriter.write(getDate() + ";;" + getName() + ";;" + getPlace() + ";;" + getDescription());
@@ -23,18 +23,5 @@ public class ChangeEntry extends Entry{
             System.out.println("Error!");
             e.printStackTrace();
         }
-    }
-
-    public List<Entry> readFromFile(String fileName) throws Exception{
-        List<Entry> entries = new ArrayList<>();
-        File f = new File(fileName);
-        try (Scanner fail = new Scanner(f, "UTF-8")) {
-            while (fail.hasNextLine()) {
-                String line = fail.nextLine();
-                String[] lineSplit = line.split(";;");
-                entries.add(new ChangeEntry(LocalDate.parse(lineSplit[0]), lineSplit[1], lineSplit[2], lineSplit[3]));
-            }
-        }
-        return entries;
     }
 }
