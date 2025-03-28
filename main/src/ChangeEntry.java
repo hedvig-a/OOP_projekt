@@ -24,7 +24,11 @@ public class ChangeEntry extends Entry {
         try {
             FileWriter myWriter = new FileWriter("main/entries.txt");
             for (String entry : entries) {
-                myWriter.write('\n' + entry);
+                if (entries.indexOf(entry) == 0) {
+                    myWriter.write(entry);
+                } else {
+                    myWriter.write('\n' + entry);
+                }
             }
             myWriter.close();
             System.out.println("Entry changed! ヽ(>∀<☆)ノ");
