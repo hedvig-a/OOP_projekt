@@ -9,14 +9,18 @@ public class NewEntry extends Entry {
     }
 
     @Override
-    public void writeToFile() throws Exception{
+    public void writeToFile() throws Exception {
         List<String> previousEntries = readFromFile("main/entries.txt");
         previousEntries.add(getDate() + ";;" + getName() + ";;" + getPlace() + ";;" + getDescription());
         //Method found from https://www.w3schools.com/java/java_files_create.asp
         try {
             FileWriter myWriter = new FileWriter("main/entries.txt");
             for (String entry : previousEntries) {
-                myWriter.write('\n' + entry);
+                if (previousEntries.indexOf(entry) == 0) {
+                    myWriter.write(entry);
+                } else {
+                    myWriter.write('\n' + entry);
+                }
             }
             myWriter.close();
             System.out.println("Entry added! ヽ(>∀<☆)ノ");

@@ -19,7 +19,7 @@ abstract class Entry {
 
     public abstract void writeToFile() throws Exception;
 
-    public void findFromFile(String fileName, LocalDate inqDate, String inqName) throws Exception {
+    public void findFromFileDate(String fileName, LocalDate inqDate, String inqName) throws Exception {
         File f = new File(fileName);
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
@@ -33,7 +33,7 @@ abstract class Entry {
         }
     }
 
-    public void findFromFile(String fileName, LocalDate inqDate) throws Exception {
+    public void findFromFileDate(String fileName, LocalDate inqDate) throws Exception {
         File f = new File(fileName);
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
@@ -47,7 +47,7 @@ abstract class Entry {
         }
     }
 
-    public List<String> readFromFile(String fileName) throws Exception{
+    public List<String> readFromFile(String fileName) throws Exception {
         List<String> entries = new ArrayList<>();
         File f = new File(fileName);
         try (Scanner fail = new Scanner(f, "UTF-8")) {

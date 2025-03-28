@@ -14,17 +14,18 @@ public class ChangeEntry extends Entry {
     @Override
     public void writeToFile() throws Exception {
         List<String> entries = readFromFile("main/entries.txt");
-        for (String line : entries) {
+        for (int i = 0; i < entries.size(); i++) {
+            String line = entries.get(i);
             String[] lineSplit = line.split(";;");
-            if (LocalDate.parse(lineSplit[0]) == getDate() && lineSplit[1].equals(getName())){
-
+            if (LocalDate.parse(lineSplit[0]) == getDate() && lineSplit[1].equals(getName())) {
+                entries.set(i, getDate() + ";;" + getName() + ";;" + getPlace() + ";;" + getDescription());
             }
-
         }
         try {
             FileWriter myWriter = new FileWriter("main/entries.txt");
-
-            myWriter.write(' ');
+            for (String entry : entries) {
+                myWriter.write('\n' + entry);
+            }
             myWriter.close();
             System.out.println("Entry changed! ヽ(>∀<☆)ノ");
         } catch (IOException e) {
