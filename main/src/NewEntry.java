@@ -11,7 +11,7 @@ public class NewEntry extends Entry {
     @Override
     public void writeToFile() throws Exception {
         List<String> previousEntries = readFromFile("main/entries.txt");
-        previousEntries.add(getDate() + ";;" + getName() + ";;" + getPlace() + ";;" + getDescription());
+        previousEntries.add(toString());
         //Method found from https://www.w3schools.com/java/java_files_create.asp
         try {
             FileWriter myWriter = new FileWriter("main/entries.txt");

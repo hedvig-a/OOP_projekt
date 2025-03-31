@@ -17,31 +17,40 @@ abstract class Entry {
         this.description = description;
     }
 
+    public Entry(String name, LocalDate date) {
+        this.name = name;
+        this.date = date;
+    }
+
+    public Entry(LocalDate date) {
+        this.date = date;
+    }
+
     public abstract void writeToFile() throws Exception;
 
-    public void findFromFileDate(String fileName, LocalDate inqDate, String inqName) throws Exception {
+    public void findFromFileName(String fileName, LocalDate inqDate, String inqName) throws Exception {
         File f = new File(fileName);
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
                 String line = fail.nextLine();
-                String[] lineSplit = line.split(";");
+                String[] lineSplit = line.split(";;");
                 LocalDate lineDate = LocalDate.parse(lineSplit[0]);
                 if (lineDate == inqDate && lineSplit[1].equals(inqName)) {
-                    System.out.println();// siia sisse output sellel kujul nag tahame
+                    System.out.println(lineSplit.toString());// siia sisse output sellel kujul nag tahame
                 }
             }
         }
     }
 
-    public void findFromFileDate(String fileName, LocalDate inqDate) throws Exception {
-        File f = new File(fileName);
+    public void findFromFileDate() throws Exception {
+        File f = new File("main/entries.txt");
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
                 String line = fail.nextLine();
-                String[] lineSplit = line.split(";");
+                String[] lineSplit = line.split(";;");
                 LocalDate lineDate = LocalDate.parse(lineSplit[0]);
-                if (lineDate == inqDate) {
-                    System.out.println();// siia sisse output sellel kujul nag tahame
+                if (lineDate.equals(this.date)) {
+                    System.out.println("Date: " + lineSplit[0] + "; Name: " + lineSplit[1] + "; Location: " + lineSplit[2] + "; Description: " + lineSplit[3]);// siia sisse output sellel kujul nag tahame
                 }
             }
         }
@@ -73,5 +82,9 @@ abstract class Entry {
 
     public String getDescription() {
         return description;
+    }
+
+    public String toString() {
+        return getDate() + ";;" + getName() + ";;" + getPlace() + ";;" + getDescription();
     }
 }
