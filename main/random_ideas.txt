@@ -1,0 +1,5 @@
+Picnic in the park;;date;;get some lovely snacks and enjoy the nice weather together;;false
+Cooking dinner together;;date;;Making a simple meal together that we can enjoy later;;false
+Escape room;;hangout;;Go to the new escape room together;;false
+Bingo night;;hangout;;Go out for an evening and play some bingo with friends;;false
+Chill night at home playing boardgames;;date;;Can play some of the boardgames together that we got for bd;;false
