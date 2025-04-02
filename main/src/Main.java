@@ -80,11 +80,8 @@ public class Main {
                     } catch (DateTimeParseException e) {
                         System.out.println("Date entered incorrectly >_< Try again!");
                     }
-
-
                 } else if (choice.equalsIgnoreCase("one")) {
                     LocalDate parsedDate = null;
-
                     try {
                         System.out.println("Enter the date of the entry you wish to see (yyyy-mm-dd): ");
                         String date = scan.nextLine();
@@ -98,50 +95,49 @@ public class Main {
                         System.out.println("Date entered incorrectly >_< Try again!");
                     }
                 }
+            }
+            if (choice.equalsIgnoreCase("i")) {
+                boolean ideaMenu = true;
+                while (ideaMenu) {
+                    System.out.println("What would you like to do with the ideas?" +
+                            "\nOptions: add idea - A, get random idea - R, view saved ideas - S, view favorite ideas - F, favorite new idea - Y, remove idea - X, quit - Q");
+                    String ideaChoice = scan.nextLine();
 
-                if (choice.equalsIgnoreCase("i")) {
-                    boolean ideaMenu = true;
-                    while (ideaMenu) {
-                        System.out.println("What would you like to do with the ideas?" +
-                                "\nOptions: add idea - A, get random idea - R, view saved ideas - S, view favorite ideas - F, favorite new idea - Y, remove idea - X, quit - Q");
-                        String ideaChoice = scan.nextLine();
-
-                        if (ideaChoice.equalsIgnoreCase("a")) {
-                            //Adding a new idea.
-                            ideaGenerator.addUserIdea();
-                        } else if (ideaChoice.equalsIgnoreCase("r") || ideaChoice.equalsIgnoreCase("s")) {
-                            //figuring out if user wants random idea or the saved ideas.
-                            String type = ideaChoice.equalsIgnoreCase("r") ? "random" : "saved";
-                            //getting a random idea from a category of choice and making sure the category is valid.
-                            String input = ideaGenerator.checkCategoryInput();
-                            if (input.equalsIgnoreCase("B")) {
-                                continue;
-                            }
-                            ideaGenerator.getIdeas(type, input);
-                        } else if (ideaChoice.equalsIgnoreCase("f")) {
-                            //getting a list of all the ideas that have been favorited.
-                            ideaGenerator.viewFavorites();
-                        } else if (ideaChoice.equalsIgnoreCase("y")) {
-                            // Marking an idea as a favorite
-                            String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to favorite or write 'B' to go back: ");
-                            if (input == null) {
-                                continue;
-                            }
-                            ideaGenerator.markAsFavorite(input);
-                        } else if (ideaChoice.equalsIgnoreCase("x")) {
-                            String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to remove or write 'B' to go back:: ");
-                            if (input == null) {
-                                continue;
-                            }
-                            ideaGenerator.removeIdea(input);
-                        } else if (ideaChoice.equalsIgnoreCase("q")) {
-                            //closing the idea menu and going to the main manu.
-                            System.out.println("returning to main menu...");
-                            ideaMenu = false;
-                        } else {
-                            // in case they type a choice that is not listed.
-                            System.out.println("Invalid option, please try again:");
+                    if (ideaChoice.equalsIgnoreCase("a")) {
+                        //Adding a new idea.
+                        ideaGenerator.addUserIdea();
+                    } else if (ideaChoice.equalsIgnoreCase("r") || ideaChoice.equalsIgnoreCase("s")) {
+                        //figuring out if user wants random idea or the saved ideas.
+                        String type = ideaChoice.equalsIgnoreCase("r") ? "random" : "saved";
+                        //getting a random idea from a category of choice and making sure the category is valid.
+                        String input = ideaGenerator.checkCategoryInput();
+                        if (input.equalsIgnoreCase("B")) {
+                            continue;
                         }
+                        ideaGenerator.getIdeas(type, input);
+                    } else if (ideaChoice.equalsIgnoreCase("f")) {
+                        //getting a list of all the ideas that have been favorited.
+                        ideaGenerator.viewFavorites();
+                    } else if (ideaChoice.equalsIgnoreCase("y")) {
+                        // Marking an idea as a favorite
+                        String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to favorite or write 'B' to go back: ");
+                        if (input == null) {
+                            continue;
+                        }
+                        ideaGenerator.markAsFavorite(input);
+                    } else if (ideaChoice.equalsIgnoreCase("x")) {
+                        String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to remove or write 'B' to go back:: ");
+                        if (input == null) {
+                            continue;
+                        }
+                        ideaGenerator.removeIdea(input);
+                    } else if (ideaChoice.equalsIgnoreCase("q")) {
+                        //closing the idea menu and going to the main manu.
+                        System.out.println("returning to main menu...");
+                        ideaMenu = false;
+                    } else {
+                        // in case they type a choice that is not listed.
+                        System.out.println("Invalid option, please try again:");
                     }
                 }
             }
