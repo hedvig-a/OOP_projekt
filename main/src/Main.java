@@ -17,7 +17,7 @@ public class Main {
 
             if (choice.equalsIgnoreCase("a")) {
                 LocalDate parsedDate = null;
-                while (parsedDate == null){
+                while (parsedDate == null) {
                     System.out.println("Enter the date of the occasion (yyyy-mm-dd): ");
                     try {
                         String date = scan.nextLine();
@@ -38,15 +38,15 @@ public class Main {
                 continue;
             }
 
-            if (choice.equalsIgnoreCase("q")){
+            if (choice.equalsIgnoreCase("q")) {
                 System.out.println("Bye-bye!");
                 break;
             }
 
-            if (choice.equalsIgnoreCase("c")){
+            if (choice.equalsIgnoreCase("c")) {
                 LocalDate parsedDate = null;
                 while (parsedDate == null) {
-                    System.out.println("Enter the date of the entry you'd like to change:");
+                    System.out.println("Enter the date of the entry you'd like to change (yyyy-mm-dd):");
                     try {
                         String date = scan.nextLine();
                         parsedDate = LocalDate.parse(date);
@@ -66,86 +66,82 @@ public class Main {
                 entry.writeToFile();
             }
 
-            if (choice.equalsIgnoreCase("f")){
+            if (choice.equalsIgnoreCase("f")) { //tõstsin selle checki et kas üldse sellel kuupäeval entrysid on entry classi meetodisse
                 System.out.println("Would you like to find all entries that share a date or a specific entry? (all/one)");
                 choice = scan.nextLine();
-                if (choice.equalsIgnoreCase("all")){
+                if (choice.equalsIgnoreCase("all")) {
                     LocalDate parsedDate = null;
-                    boolean entryFound = false;
-
-                    while (parsedDate == null) {
-                        System.out.println("Enter the date you wish to see entries from (yyyy-mm-dd): ");
-                        try {
-                            String date = scan.nextLine();
-                            parsedDate = LocalDate.parse(date);
-                            ChangeEntry entry = new ChangeEntry(parsedDate);
-                            List<String> entries = entry.readFromFile("main/entries.txt");
-
-                            for (String line : entries) {
-                                String [] lineSplit = line.split(";;");
-                                LocalDate lineDate = LocalDate.parse(lineSplit[0]);
-                                if (lineDate.equals(parsedDate)) {
-                                    entryFound = true;
-                                    break;
-                                }
-                            }
-
-                            if (!entryFound) {
-                                System.out.println("There's no entry with that date, please try again!");
-                            } else {
-                                entry.findFromFileDate();
-                            }
-
-                        } catch (DateTimeParseException e) {
-                            System.out.println("Date entered incorrectly >_< Try again!");
-                        }
+                    System.out.println("Enter the date you wish to see entries from (yyyy-mm-dd): ");
+                    try {
+                        String date = scan.nextLine();
+                        parsedDate = LocalDate.parse(date);
+                        ChangeEntry entry = new ChangeEntry(parsedDate);
+                        entry.findFromFileDate();
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Date entered incorrectly >_< Try again!");
                     }
 
+
+                } else if (choice.equalsIgnoreCase("one")) {
+                    LocalDate parsedDate = null;
+
+                    try {
+                        System.out.println("Enter the date of the entry you wish to see (yyyy-mm-dd): ");
+                        String date = scan.nextLine();
+                        parsedDate = LocalDate.parse(date);
+                        System.out.println("Enter the name of the entry: ");
+                        String inqEntryName = scan.nextLine();
+                        ChangeEntry entryWithName = new ChangeEntry(inqEntryName, parsedDate);
+                        entryWithName.findFromFileName();
+
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Date entered incorrectly >_< Try again!");
+                    }
                 }
-            }
 
-            if (choice.equalsIgnoreCase("i")) {
-                boolean ideaMenu = true;
-                while (ideaMenu) {
-                    System.out.println("What would you like to do with the ideas?" +
-                            "\nOptions: add idea - A, get random idea - R, view saved ideas - S, view favorite ideas - F, favorite new idea - Y, remove idea - X, quit - Q");
-                    String ideaChoice = scan.nextLine();
+                if (choice.equalsIgnoreCase("i")) {
+                    boolean ideaMenu = true;
+                    while (ideaMenu) {
+                        System.out.println("What would you like to do with the ideas?" +
+                                "\nOptions: add idea - A, get random idea - R, view saved ideas - S, view favorite ideas - F, favorite new idea - Y, remove idea - X, quit - Q");
+                        String ideaChoice = scan.nextLine();
 
-                    if (ideaChoice.equalsIgnoreCase("a")) {
-                        //Adding a new idea.
-                        ideaGenerator.addUserIdea();
-                    } else if (ideaChoice.equalsIgnoreCase("r") || ideaChoice.equalsIgnoreCase("s")) {
-                        //figuring out if user wants random idea or the saved ideas.
-                        String type = ideaChoice.equalsIgnoreCase("r") ? "random" : "saved";
-                        //getting a random idea from a category of choice and making sure the category is valid.
-                        String input = ideaGenerator.checkCategoryInput();
-                        if (input.equalsIgnoreCase("B")) {
-                            continue;
+                        if (ideaChoice.equalsIgnoreCase("a")) {
+                            //Adding a new idea.
+                            ideaGenerator.addUserIdea();
+                        } else if (ideaChoice.equalsIgnoreCase("r") || ideaChoice.equalsIgnoreCase("s")) {
+                            //figuring out if user wants random idea or the saved ideas.
+                            String type = ideaChoice.equalsIgnoreCase("r") ? "random" : "saved";
+                            //getting a random idea from a category of choice and making sure the category is valid.
+                            String input = ideaGenerator.checkCategoryInput();
+                            if (input.equalsIgnoreCase("B")) {
+                                continue;
+                            }
+                            ideaGenerator.getIdeas(type, input);
+                        } else if (ideaChoice.equalsIgnoreCase("f")) {
+                            //getting a list of all the ideas that have been favorited.
+                            ideaGenerator.viewFavorites();
+                        } else if (ideaChoice.equalsIgnoreCase("y")) {
+                            // Marking an idea as a favorite
+                            String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to favorite or write 'B' to go back: ");
+                            if (input == null) {
+                                continue;
+                            }
+                            ideaGenerator.markAsFavorite(input);
+                        } else if (ideaChoice.equalsIgnoreCase("x")) {
+                            String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to remove or write 'B' to go back:: ");
+                            if (input == null) {
+                                continue;
+                            }
+                            ideaGenerator.removeIdea(input);
+                        } else if (ideaChoice.equalsIgnoreCase("q")) {
+                            //closing the idea menu and going to the main manu.
+                            System.out.println("returning to main menu...");
+                            ideaMenu = false;
+                        } else {
+                            // in case they type a choice that is not listed.
+                            System.out.println("Invalid option, please try again:");
                         }
-                        ideaGenerator.getIdeas(type, input);
-                    } else if (ideaChoice.equalsIgnoreCase("f")) {
-                        //getting a list of all the ideas that have been favorited.
-                        ideaGenerator.viewFavorites();
-                    }  else if (ideaChoice.equalsIgnoreCase("y")) {
-                        // Marking an idea as a favorite
-                        String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to favorite or write 'B' to go back: ");
-                        if (input == null){
-                            continue;
-                        }
-                        ideaGenerator.markAsFavorite(input);
-                    } else if (ideaChoice.equalsIgnoreCase("x")){
-                        String input = ideaGenerator.getInputWithBackOption("Enter the activity name of the idea you want to remove or write 'B' to go back:: ");
-                        if (input == null) {
-                            continue;
-                        }
-                        ideaGenerator.removeIdea(input);
-                    } else if (ideaChoice.equalsIgnoreCase("q")) {
-                        //closing the idea menu and going to the main manu.
-                        System.out.println("returning to main menu...");
-                        ideaMenu = false;
-                    } else {
-                        // in case they type a choice that is not listed.
-                        System.out.println("Invalid option, please try again:");
                     }
                 }
             }

@@ -28,30 +28,48 @@ abstract class Entry {
 
     public abstract void writeToFile() throws Exception;
 
-    public void findFromFileName(String fileName, LocalDate inqDate, String inqName) throws Exception {
-        File f = new File(fileName);
+    public void findFromFileName() throws Exception {
+        File f = new File("main/entries.txt");
+        boolean entryFound = false;
+        String output = "";
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
                 String line = fail.nextLine();
                 String[] lineSplit = line.split(";;");
                 LocalDate lineDate = LocalDate.parse(lineSplit[0]);
-                if (lineDate == inqDate && lineSplit[1].equals(inqName)) {
-                    System.out.println(lineSplit.toString());// siia sisse output sellel kujul nag tahame
+                if (lineSplit[1].equals(this.name) && lineDate.equals(this.date) ) {
+                    entryFound = true;
+                    output = "Date: " + lineSplit[0] + "; Name: " + lineSplit[1] + "; Location: " + lineSplit[2] + "; Description: " + lineSplit[3];
+                    break;
                 }
             }
+        } if (!entryFound){
+            System.out.println("No entry found!");
+        }else {
+            System.out.println(output);
         }
     }
 
     public void findFromFileDate() throws Exception {
         File f = new File("main/entries.txt");
+        boolean entryFound = false;
+        List<String> output = new ArrayList<>();
         try (Scanner fail = new Scanner(f, "UTF-8")) {
             while (fail.hasNextLine()) {
                 String line = fail.nextLine();
                 String[] lineSplit = line.split(";;");
                 LocalDate lineDate = LocalDate.parse(lineSplit[0]);
                 if (lineDate.equals(this.date)) {
-                    System.out.println("Date: " + lineSplit[0] + "; Name: " + lineSplit[1] + "; Location: " + lineSplit[2] + "; Description: " + lineSplit[3]);// siia sisse output sellel kujul nag tahame
+                    entryFound = true;
+                    output.add("Date: " + lineSplit[0] + "; Name: " + lineSplit[1] + "; Location: " + lineSplit[2] + "; Description: " + lineSplit[3]);
                 }
+            }
+        }
+        if (!entryFound){
+            System.out.println("No entries with that date :(");
+        } else {
+            for (String entry : output){
+                System.out.println(entry);
             }
         }
     }
