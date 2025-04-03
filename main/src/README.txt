@@ -21,10 +21,13 @@ Main - programmi peaklass, mille käivitamisel on võimalik programmi kasutada. 
 Entry - abstraktne klass, kus on abstraktne meetod faili kirjutamiseks, meetodid failist lugemiseks, kindlate sissekannete leidmiseks ja getterid-setterid
 ChangeEntry - Entry alamklass, mõeldud sissekannete muutmiseks
 NewEntry - Entry alamklass, mõeldud uute sissekannete loomiseks
-Idea -
-IdeaGenerator -
-DateIdeaGenerator -
-HangoutIdeaGenerator -
+Idea - Idea klass on selleks, et luua idee objekt ning seal hoian ka kõik getterid ja setterid, mis on ideega seotud.
+DateIdeaGenerator - See klass laiendab Idea klassi ning on eraldi loodud date/kohtingu tüüpi ideede jaosk.
+HangoutIdeaGenerator - See klass laiendab Idea klassi ning on eraldi loodud hangout/kokkusaamise tüüpi ideede jaosk.
+IdeaGenerator - see klass vastutab kõikide ideede eest, seal asuvad kõik funktsionaalsused, mis on eri ideede tegevustega seotud (lisamine, eemaldamine, muutmine jne).
+Sinna on kogutud ka osad funktsionaalsused, mis tegelevad kasutajaga suhtlemisega, et hoida main fail puhtamana.
+Tulevikus tahan seda natuke paremini jaotada.
+getInputWithBackOption(String prompt) on hiljem lisatud funktsioon, mida ma ei saanud päris nii tööle nagu ma tahtsin, aga ta aitab natuke vältida koodi kordamist.
 
 Rühmaliikmete panus:
 Hedvig - lõi klassid Entry, ChangeEntry, NewEntry ja lõi Maini põhja, ligikaudu (mingi arv) tundi tööd
@@ -33,13 +36,16 @@ Angelika - pakkus projekti idee, lõi klassid Idea, IdeaGenerator, DateIdeaGener
 Murekohad:
 Hedvig - Ei tundnud väga, et oleks teadmistest puudu jäänud - olen kursuselt piisavalt õppinud, et sain programmis
 enamike meetodite loomisega oma teadmiste peal hakkama.
-Angelika -
+Angelika - Sain ka oma osaga päris hästi hakkama, ainuke murekoht oli, idee osas, tagasimineku lisamisega, kuna eri valikute variandid sain kasutaja vastuseid erinevalt,
+ edaspidi tahaks muuta nii, et oleks võimalik ühtlustada tagasimineku funktsionaalsust. Aega kulus ca 10h.
 
 Hinnang oma töö tulemusele:
 Hedvig - Mina olen programmiga väga rahul. Kõik ideed, mis alguses kokku leppisime, said projektile lisatud.
-Angelika -
+Angelika - Olen rahul, kõik toimib nii nagu soovisime ning sain oma osa täpselt nii detailseks kui plaanisin.
 
 Programmi testimine:
 Hedvig - testisin enda klasse Mainis siis, kui põhiprogramm polnud veel kirjutatud. Kui olin veendunud, et funktsioonid
 töötavad nii, kuidas pidid, kirjutasin algse põhiprogrammi.
-Angelika -
+Angelika - Kuna ma plaanisin välja kõik põhifunktsionaalsused, siis tegin algselt üle-üldsise main faili osa ideedele, ning iga funktsionaalsuse valmimise järgselt täiendasin seda ja testisin,
+et kõik toimiks nii nagu peab. Algselt ei olnud tagasiminekut plaanis, kui nägin töö valmimisel, et seda on vaja ning lisasin selle juurde, kui see osutus küllaltki keeruliseks, kuna üritasin koodi hoida puhtana.
+Kui kõik funktsionaalsused olid valmis, siis testisin käsitsi kõiki variante ja tegin muudatuse vastavalt vajadusele.
