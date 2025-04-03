@@ -1,0 +1,4 @@
+Lunch;;date;;Simple lunch with some idecream.;;true
+Koos kinno;;hangout;;Lähme vaatame uut filmi.;;false
+Laser Tag;;hangout;;Saame grupiga kokku ja veedame õhtu mängides laserTagi;;false
+Rannapäev;;hangout;;Lähme koos suvel randa;;true
