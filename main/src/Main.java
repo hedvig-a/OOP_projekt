@@ -12,91 +12,98 @@ public class Main {
         while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("What would you like to do?" +
-                    "\nOptions: add entries - A, change entries - C, find entries - F, manage ideas - I, quit - Q");
+                    "\nOptions: manage entries - E, manage ideas - I, quit - Q");
             String choice = scan.nextLine();
+            if (choice.equalsIgnoreCase("e")) {
+                boolean entryMenu = true;
+                while (entryMenu) {
+                    System.out.println("What do you wish to do with the entries? \nadd entries - A, change entries - C, find entries - F, back to the main menu - Q");
+                    choice = scan.nextLine();
 
-            if (choice.equalsIgnoreCase("a")) {
-                LocalDate parsedDate = null;
-                while (parsedDate == null) {
-                    System.out.println("Enter the date of the occasion (yyyy-mm-dd): ");
-                    try {
-                        String date = scan.nextLine();
-                        parsedDate = LocalDate.parse(date);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Date entered incorrectly >_< Try again!");
+                    if (choice.equalsIgnoreCase("a")) {
+                        LocalDate parsedDate = null;
+                        while (parsedDate == null) {
+                            System.out.println("Enter the date of the occasion (yyyy-mm-dd): ");
+                            try {
+                                String date = scan.nextLine();
+                                parsedDate = LocalDate.parse(date);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Date entered incorrectly >_< Try again!");
+                            }
+                        }
+                        System.out.println("Enter the name of the occasion: ");
+                        String name = scan.nextLine();
+                        System.out.println("Enter the location of the occasion: ");
+                        String location = scan.nextLine();
+                        System.out.println("Write a description for the occasion: ");
+                        String description = scan.nextLine();
+                        NewEntry entry = new NewEntry(parsedDate, name, location, description);
+                        entry.writeToFile();
+
+                    } else if (choice.equalsIgnoreCase("q")) {
+                        System.out.println("returning to the main menu...");
+                        entryMenu = false;
+
+                    } else if (choice.equalsIgnoreCase("c")) {
+                        LocalDate parsedDate = null;
+                        while (parsedDate == null) {
+                            System.out.println("Enter the date of the entry you'd like to change (yyyy-mm-dd):");
+                            try {
+                                String date = scan.nextLine();
+                                parsedDate = LocalDate.parse(date);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Date entered incorrectly >_< Try again!");
+                            }
+                        }
+
+
+                        System.out.println("Enter the name of the occasion you'd like to change: ");
+                        String name = scan.nextLine();
+                        System.out.println("Enter a new location for the occasion: ");
+                        String location = scan.nextLine();
+                        System.out.println("Write a new description for the occasion: ");
+                        String description = scan.nextLine();
+                        ChangeEntry entry = new ChangeEntry(parsedDate, name, location, description);
+                        entry.writeToFile();
+
+                    } else if (choice.equalsIgnoreCase("f")) { //tõstsin selle checki et kas üldse sellel kuupäeval entrysid on entry classi meetodisse
+                        System.out.println("Would you like to find all entries that share a date or a specific entry? (all/one)");
+                        choice = scan.nextLine();
+                        if (choice.equalsIgnoreCase("all")) {
+                            LocalDate parsedDate;
+                            System.out.println("Enter the date you wish to see entries from (yyyy-mm-dd): ");
+                            try {
+                                String date = scan.nextLine();
+                                parsedDate = LocalDate.parse(date);
+                                ChangeEntry entry = new ChangeEntry(parsedDate);
+                                entry.findFromFileDate();
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Date entered incorrectly >_< Try again!");
+                            }
+
+                        } else if (choice.equalsIgnoreCase("one")) {
+                            LocalDate parsedDate;
+                            try {
+                                System.out.println("Enter the date of the entry you wish to see (yyyy-mm-dd): ");
+                                String date = scan.nextLine();
+                                parsedDate = LocalDate.parse(date);
+                                System.out.println("Enter the name of the entry: ");
+                                String inqEntryName = scan.nextLine();
+                                ChangeEntry entryWithName = new ChangeEntry(inqEntryName, parsedDate);
+                                entryWithName.findFromFileName();
+
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Date entered incorrectly >_< Try again!");
+                            }
+                        }
+
+                    } else {
+                        System.out.println("Invalid option, please try again!");
                     }
                 }
-
-                System.out.println("Enter the name of the occasion: ");
-                String name = scan.nextLine();
-                System.out.println("Enter the location of the occasion: ");
-                String location = scan.nextLine();
-                System.out.println("Write a description for the occasion: ");
-                String description = scan.nextLine();
-                NewEntry entry = new NewEntry(parsedDate, name, location, description);
-                entry.writeToFile();
-                continue;
             }
 
-            if (choice.equalsIgnoreCase("q")) {
-                System.out.println("Bye-bye!");
-                break;
-            }
-
-            if (choice.equalsIgnoreCase("c")) {
-                LocalDate parsedDate = null;
-                while (parsedDate == null) {
-                    System.out.println("Enter the date of the entry you'd like to change (yyyy-mm-dd):");
-                    try {
-                        String date = scan.nextLine();
-                        parsedDate = LocalDate.parse(date);
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Date entered incorrectly >_< Try again!");
-                    }
-                }
-
-
-                System.out.println("Enter the name of the occasion you'd like to change: ");
-                String name = scan.nextLine();
-                System.out.println("Enter a new location for the occasion: ");
-                String location = scan.nextLine();
-                System.out.println("Write a new description for the occasion: ");
-                String description = scan.nextLine();
-                ChangeEntry entry = new ChangeEntry(parsedDate, name, location, description);
-                entry.writeToFile();
-            }
-
-            if (choice.equalsIgnoreCase("f")) { //tõstsin selle checki et kas üldse sellel kuupäeval entrysid on entry classi meetodisse
-                System.out.println("Would you like to find all entries that share a date or a specific entry? (all/one)");
-                choice = scan.nextLine();
-                if (choice.equalsIgnoreCase("all")) {
-                    LocalDate parsedDate = null;
-                    System.out.println("Enter the date you wish to see entries from (yyyy-mm-dd): ");
-                    try {
-                        String date = scan.nextLine();
-                        parsedDate = LocalDate.parse(date);
-                        ChangeEntry entry = new ChangeEntry(parsedDate);
-                        entry.findFromFileDate();
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Date entered incorrectly >_< Try again!");
-                    }
-                } else if (choice.equalsIgnoreCase("one")) {
-                    LocalDate parsedDate = null;
-                    try {
-                        System.out.println("Enter the date of the entry you wish to see (yyyy-mm-dd): ");
-                        String date = scan.nextLine();
-                        parsedDate = LocalDate.parse(date);
-                        System.out.println("Enter the name of the entry: ");
-                        String inqEntryName = scan.nextLine();
-                        ChangeEntry entryWithName = new ChangeEntry(inqEntryName, parsedDate);
-                        entryWithName.findFromFileName();
-
-                    } catch (DateTimeParseException e) {
-                        System.out.println("Date entered incorrectly >_< Try again!");
-                    }
-                }
-            }
-            if (choice.equalsIgnoreCase("i")) {
+            else if (choice.equalsIgnoreCase("i")) {
                 boolean ideaMenu = true;
                 while (ideaMenu) {
                     System.out.println("What would you like to do with the ideas?" +
@@ -133,13 +140,18 @@ public class Main {
                         ideaGenerator.removeIdea(input);
                     } else if (ideaChoice.equalsIgnoreCase("q")) {
                         //closing the idea menu and going to the main manu.
-                        System.out.println("returning to main menu...");
+                        System.out.println("returning to the main menu...");
                         ideaMenu = false;
                     } else {
                         // in case they type a choice that is not listed.
-                        System.out.println("Invalid option, please try again:");
+                        System.out.println("Invalid option, please try again!");
                     }
                 }
+            } else if (choice.equalsIgnoreCase("q")){
+                System.out.println("Bye-bye!");
+                break;
+            } else {
+                System.out.println("Invalid option, please try again!");
             }
         }
     }
