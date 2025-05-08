@@ -1,10 +1,11 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-abstract class Entry {
+public class Entry {
     private LocalDate date;
     private String name;
     private String place;
@@ -26,7 +27,41 @@ abstract class Entry {
         this.date = date;
     }
 
-    public abstract void writeToFile() throws Exception;
+    public void writeToFile(List<String> previousEntries) throws Exception {
+        //Method found from https://www.w3schools.com/java/java_files_create.asp
+        try (FileWriter myWriter = new FileWriter("main/entries.txt")) {
+            for (String entry : previousEntries) {
+                if (previousEntries.indexOf(entry) == 0) {
+                    myWriter.write(entry);
+                } else {
+                    myWriter.write('\n' + entry);
+                }
+            }
+        }
+    }
+
+    public void changeEntry() throws Exception {
+        List<String> entries = readFromFile("main/entries.txt");
+        if (entries.isEmpty()) {
+            System.out.println("No entries to change! Try adding an entry instead ^_^");
+            return;
+        }
+        for (int i = 0; i < entries.size(); i++) {
+            String line = entries.get(i);
+            String[] lineSplit = line.split(";;");
+            if (LocalDate.parse(lineSplit[0]).equals(getDate()) && lineSplit[1].equals(getName())) {
+                entries.set(i, toString());
+            }
+        }
+        writeToFile(entries);
+    }
+
+    public void newEntry() throws Exception {
+        List<String> previousEntries = readFromFile("main/entries.txt");
+        previousEntries.add(toString());
+        writeToFile(previousEntries);
+        System.out.println("Entry added! ヽ(>∀<☆)ノ");
+    }
 
     public void findFromFileName() throws Exception {
         File f = new File("main/entries.txt");
@@ -37,15 +72,16 @@ abstract class Entry {
                 String line = fail.nextLine();
                 String[] lineSplit = line.split(";;");
                 LocalDate lineDate = LocalDate.parse(lineSplit[0]);
-                if (lineSplit[1].equals(this.name) && lineDate.equals(this.date) ) {
+                if (lineSplit[1].equals(this.name) && lineDate.equals(this.date)) {
                     entryFound = true;
                     output = "Date: " + lineSplit[0] + "; Name: " + lineSplit[1] + "; Location: " + lineSplit[2] + "; Description: " + lineSplit[3];
                     break;
                 }
             }
-        } if (!entryFound){
+        }
+        if (!entryFound) {
             System.out.println("No entry found!");
-        }else {
+        } else {
             System.out.println(output);
         }
     }
@@ -65,10 +101,10 @@ abstract class Entry {
                 }
             }
         }
-        if (!entryFound){
+        if (!entryFound) {
             System.out.println("No entries with that date :(");
         } else {
-            for (String entry : output){
+            for (String entry : output) {
                 System.out.println(entry);
             }
         }

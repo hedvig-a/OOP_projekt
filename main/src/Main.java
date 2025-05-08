@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -37,8 +36,8 @@ public class Main {
                         String location = scan.nextLine();
                         System.out.println("Write a description for the occasion: ");
                         String description = scan.nextLine();
-                        NewEntry entry = new NewEntry(parsedDate, name, location, description);
-                        entry.writeToFile();
+                        Entry entry = new Entry(parsedDate, name, location, description);
+                        entry.newEntry();
 
                     } else if (choice.equalsIgnoreCase("q")) {
                         System.out.println("returning to the main menu...");
@@ -56,15 +55,14 @@ public class Main {
                             }
                         }
 
-
                         System.out.println("Enter the name of the occasion you'd like to change: ");
                         String name = scan.nextLine();
                         System.out.println("Enter a new location for the occasion: ");
                         String location = scan.nextLine();
                         System.out.println("Write a new description for the occasion: ");
                         String description = scan.nextLine();
-                        ChangeEntry entry = new ChangeEntry(parsedDate, name, location, description);
-                        entry.writeToFile();
+                        Entry entry = new Entry(parsedDate, name, location, description);
+                        entry.changeEntry();
 
                     } else if (choice.equalsIgnoreCase("f")) { //tõstsin selle checki et kas üldse sellel kuupäeval entrysid on entry classi meetodisse
                         System.out.println("Would you like to find all entries that share a date or a specific entry? (all/one)");
@@ -75,7 +73,7 @@ public class Main {
                             try {
                                 String date = scan.nextLine();
                                 parsedDate = LocalDate.parse(date);
-                                ChangeEntry entry = new ChangeEntry(parsedDate);
+                                Entry entry = new Entry(parsedDate);
                                 entry.findFromFileDate();
                             } catch (DateTimeParseException e) {
                                 System.out.println("Date entered incorrectly >_< Try again!");
@@ -89,7 +87,7 @@ public class Main {
                                 parsedDate = LocalDate.parse(date);
                                 System.out.println("Enter the name of the entry: ");
                                 String inqEntryName = scan.nextLine();
-                                ChangeEntry entryWithName = new ChangeEntry(inqEntryName, parsedDate);
+                                Entry entryWithName = new Entry(inqEntryName, parsedDate);
                                 entryWithName.findFromFileName();
 
                             } catch (DateTimeParseException e) {
