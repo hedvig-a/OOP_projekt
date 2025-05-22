@@ -1,3 +1,5 @@
+package model;
+
 public class HangoutIdeaGenerator extends Idea {
 
     public HangoutIdeaGenerator(String activity, String category, String description) {
@@ -6,6 +8,6 @@ public class HangoutIdeaGenerator extends Idea {
 
     @Override
     public String toString() {
-        return "[Hangout idea] " + super.toString();
+        return "[Hangout idea]\n" + super.toString();
     }
 }

@@ -1,3 +1,5 @@
+package model;
+
 public class Idea {
     protected String activity;
     protected String category;
@@ -33,7 +35,6 @@ public class Idea {
 
     public String toString() {
         return "Activity: " + activity +
-                "\nCategory: " + category +
-                "\nDescription: " + description;
+                "\nDescription\n" + description;
     }
 }

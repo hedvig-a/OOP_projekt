@@ -1,0 +1,33 @@
+#woody-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+#woody-scroll .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-height: 10px;
+}
+
+#woody-scroll .thumb {
+    -fx-background-color: #995FA3;
+    -fx-background-insets: 2;
+    -fx-background-radius: 5;
+}
+
+#woody-scroll .track {
+    -fx-background-color: #EADAEA;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+#woody-scroll .increment-button,
+#woody-scroll .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+#woody-scroll .increment-arrow,
+#woody-scroll .decrement-arrow {
+    -fx-shape: null; /* Hide arrows */
+    -fx-padding: 0;
+}

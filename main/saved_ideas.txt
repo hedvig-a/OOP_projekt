@@ -2,3 +2,7 @@ Lunch;;date;;Simple lunch with some idecream.;;true
 Koos kinno;;hangout;;Lähme vaatame uut filmi.;;false
 Laser Tag;;hangout;;Saame grupiga kokku ja veedame õhtu mängides laserTagi;;false
 Rannapäev;;hangout;;Lähme koos suvel randa;;true
+Piknik;;hangout;;Friends and chill;;true
+Tere;;hangout;;Tervitused;;false
+Miski;;date;;Miski;;false
+Hi;;date;;say hi;;false

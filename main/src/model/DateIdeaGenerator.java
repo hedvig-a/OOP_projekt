@@ -1,3 +1,5 @@
+package model;
+
 public class DateIdeaGenerator extends Idea {
 
     public DateIdeaGenerator(String activity, String category, String description){
@@ -6,7 +8,7 @@ public class DateIdeaGenerator extends Idea {
 
     @Override
     public String toString() {
-        return "[Date idea] " + super.toString();
+        return "[Date idea] \n" + super.toString();
     }
 
 

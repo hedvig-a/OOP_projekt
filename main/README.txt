@@ -2,25 +2,36 @@
 
 **Programmi kirjeldus**
 Programm kujutab endast suhtepäevikut. See võimaldab salvestada suhtes olulisi sündmusi ja salvestada ning genereerida
-ideid edasisteks koosviibimisteks. Programmi kasutamiseks tuleb kompileerida ja käivitada Main.java fail ja sisestada käsureale
+ideid edasisteks koosviibimisteks. Programmi kasutamiseks tuleb kompileerida ja käivitada vana.Main.java fail ja sisestada käsureale
 soovitud andmed.
 
+<<<<<<<< HEAD:main/README.txt
 **Klassid**
 Main - programmi peaklass, mille käivitamisel on võimalik programmi kasutada. Küsib kasutaja sisendit.
+========
+Klassid:
+vana.Main - programmi peaklass, mille käivitamisel on võimalik programmi kasutada. Küsib kasutaja sisendit.
+>>>>>>>> 18a65eb (Added JavaFX):main/src/vana/README.txt
 Entry - abstraktne klass, kus on abstraktne meetod faili kirjutamiseks, meetodid failist lugemiseks, kindlate sissekannete leidmiseks ja getterid-setterid
 ChangeEntry - Entry alamklass, mõeldud sissekannete muutmiseks
 NewEntry - Entry alamklass, mõeldud uute sissekannete loomiseks
-Idea - Idea klass on selleks, et luua idee objekt ning seal hoian ka kõik getterid ja setterid, mis on ideega seotud.
-DateIdeaGenerator - See klass laiendab Idea klassi ning on eraldi loodud date/kohtingu tüüpi ideede jaosk.
-HangoutIdeaGenerator - See klass laiendab Idea klassi ning on eraldi loodud hangout/kokkusaamise tüüpi ideede jaosk.
-IdeaGenerator - see klass vastutab kõikide ideede eest, seal asuvad kõik funktsionaalsused, mis on eri ideede tegevustega seotud (lisamine, eemaldamine, muutmine jne).
+model.Idea - model.Idea klass on selleks, et luua idee objekt ning seal hoian ka kõik getterid ja setterid, mis on ideega seotud.
+model.DateIdeaGenerator - See klass laiendab model.Idea klassi ning on eraldi loodud date/kohtingu tüüpi ideede jaosk.
+model.HangoutIdeaGenerator - See klass laiendab model.Idea klassi ning on eraldi loodud hangout/kokkusaamise tüüpi ideede jaosk.
+model.IdeaGenerator - see klass vastutab kõikide ideede eest, seal asuvad kõik funktsionaalsused, mis on eri ideede tegevustega seotud (lisamine, eemaldamine, muutmine jne).
 Sinna on kogutud ka osad funktsionaalsused, mis tegelevad kasutajaga suhtlemisega, et hoida main fail puhtamana.
 Tulevikus tahan seda natuke paremini jaotada.
 getInputWithBackOption(String prompt) on hiljem lisatud funktsioon, mida ma ei saanud päris nii tööle nagu ma tahtsin, aga ta aitab natuke vältida koodi kordamist.
 
+<<<<<<<< HEAD:main/README.txt
 **Rühmaliikmete panus**
 Hedvig - lõi klassid Entry, ChangeEntry, NewEntry ja lõi Maini põhja
 Angelika - pakkus projekti idee, lõi klassid Idea, IdeaGenerator, DateIdeaGenerator, HangoutIdeaGenerator, täiendas Main klassi
+========
+Rühmaliikmete panus:
+Hedvig - lõi klassid Entry, ChangeEntry, NewEntry ja lõi Maini põhja, ligikaudu (mingi arv) tundi tööd
+Angelika - pakkus projekti idee, lõi klassid model.Idea, model.IdeaGenerator, model.DateIdeaGenerator, model.HangoutIdeaGenerator, täiendas vana.Main klassi
+>>>>>>>> 18a65eb (Added JavaFX):main/src/vana/README.txt
 
 **Murekohad**
 Hedvig - Ei tundnud väga, et oleks teadmistest puudu jäänud - olen kursuselt piisavalt õppinud, et sain programmis
